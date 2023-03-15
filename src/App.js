@@ -1,9 +1,11 @@
-import React from 'react';
+import { React, useState } from 'react';
 import Delete from './icons/Delete';
 import Copy from './icons/Copy';
-import './App.css';
+import Editor from '@monaco-editor/react';
 
 const App = () => {
+  const [value, setValue] = useState("");
+  const [output, setOutput] = useState("");
   const handleSubmit = () => {
     console.log('Run Button Clicked');
   };
@@ -27,7 +29,32 @@ const App = () => {
         </div>
       </header>
 
-      <div className='code__container'></div>
+      <div className='code__container'>
+        <div className="code">
+          <Editor
+            height='90vh'
+            className='editor'
+            defaultLanguage='json'
+            defaultValue='{ }'
+            value={value}
+            onChange={(value) => setValue(value)}
+          />
+        </div>
+        <div className="output">
+          <Editor
+            height='90vh'
+            className='editor'
+            defaultLanguage='typescript'
+            options={{
+              domReadOnly: true,
+              readOnly: true,
+            }}
+            defaultValue=''
+            value={output}
+            onChange={(value) => setOutput(value)}
+          />
+        </div>
+      </div>
     </main>
   );
 }
