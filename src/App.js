@@ -2,12 +2,30 @@ import { React, useState } from 'react';
 import Delete from './icons/Delete';
 import Copy from './icons/Copy';
 import Editor from '@monaco-editor/react';
+import Loading from './Loading';
 
 const App = () => {
   const [value, setValue] = useState("");
   const [output, setOutput] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = () => {
-    console.log('Run Button Clicked');
+    setLoading(true);
+    fetch("http://localhost:4000/convert", {
+      method: "POST",
+      body: JSON.stringify({
+        value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        setOutput(data.response);
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -41,18 +59,22 @@ const App = () => {
           />
         </div>
         <div className="output">
-          <Editor
-            height='90vh'
-            className='editor'
-            defaultLanguage='typescript'
-            options={{
-              domReadOnly: true,
-              readOnly: true,
-            }}
-            defaultValue=''
-            value={output}
-            onChange={(value) => setOutput(value)}
-          />
+          {loading ? (
+            <Loading />
+          ) : (
+            <Editor
+              height='90vh'
+              className='editor'
+              defaultLanguage='typescript'
+              options={{
+                domReadOnly: true,
+                readOnly: true,
+              }}
+              defaultValue=''
+              value={output}
+              onChange={(value) => setOutput(value)}
+            />
+          )}
         </div>
       </div>
     </main>
