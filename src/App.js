@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import Delete from './icons/Delete';
 import Copy from './icons/Copy';
 import Editor from '@monaco-editor/react';
