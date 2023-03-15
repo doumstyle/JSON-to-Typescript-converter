@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import React from 'react';
+import Delete from './icons/Delete';
+import Copy from './icons/Copy';
 import './App.css';
 
-function App() {
+const App = () => {
+  const handleSubmit = () => {
+    console.log('Run Button Clicked');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <main className='app'>
+      <header className='header__container'>
+        <div className='header'>
+          <h3>JSON</h3>
+          <div className='header__right'>
+            <button className='runBtn' onClick={handleSubmit}>*
+              RUN
+            </button>
+            <Delete />
+          </div>
+        </div>
+
+        <div className='header'>
+          <h3>Typescript</h3>
+          <Copy />
+        </div>
       </header>
-    </div>
+
+      <div className='code__container'></div>
+    </main>
   );
 }
 
