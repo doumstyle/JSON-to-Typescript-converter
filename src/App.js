@@ -3,6 +3,7 @@ import Delete from './icons/Delete';
 import Copy from './icons/Copy';
 import Editor from '@monaco-editor/react';
 import Loading from './Loading';
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const App = () => {
   const [value, setValue] = useState("");
@@ -28,6 +29,8 @@ const App = () => {
       .catch((err) => console.error(err));
   };
 
+  const copyToClipboard = () => alert(`Copied ✅`);
+
   return (
     <main className='app'>
       <header className='header__container'>
@@ -37,13 +40,17 @@ const App = () => {
             <button className='runBtn' onClick={handleSubmit}>*
               RUN
             </button>
-            <Delete />
+            <Delete setValue={setValue} />
           </div>
         </div>
 
         <div className='header'>
           <h3>Typescript</h3>
-          <Copy />
+          <CopyToClipboard text={output} onCopy={copyToClipboard}>
+            <span>
+              <Copy />
+            </span>
+          </CopyToClipboard>
         </div>
       </header>
 
